@@ -18,13 +18,17 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./model.png "Model Visualization"
+[image2]: ./image2.jpg "Grayscaling"
+[image3]: ./image3.jpg "Recovery Image"
+[image4]: ./image4.jpg "Recovery Image"
+[image5]: ./image5.jpg "Recovery Image"
+[image6]: ./image6.png "Normal Image"
+[image7]: ./image7.png "Flipped Image"
+[image8]: ./image8.png "Left Image"
+[image9]: ./image9.png "Right Image"
+[image10]: ./image10.png "Track2 Image0"
+[image11]: ./image11.png "Track2 Image1"
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/432/view) individually and describe how I addressed each point in my implementation.  
@@ -55,19 +59,19 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines 18-24) 
+My model consists of a convolution neural network with 3x3 filter sizes and depths between 32 and 128 (model.py lines XX-XX) 
 
-The model includes RELU layers to introduce nonlinearity (code line 20), and the data is normalized in the model using a Keras lambda layer (code line 18). 
+The model includes RELU layers to introduce nonlinearity (code line XX), and the data is normalized in the model using a Keras lambda layer (code line XX). 
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 21). 
+The model contains dropout layers in order to reduce overfitting (model.py lines XX). 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 10-16). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (code line XX-XX). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 25).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line XX).
 
 #### 4. Appropriate training data
 
@@ -120,11 +124,14 @@ To augment the data sat, I also flipped images and angles thinking that this wou
 ![alt text][image6]
 ![alt text][image7]
 
-Etc ....
+And I augment data by using left and right images. I use correction value = 0.15 after several experiments. And I took reverse direction images by driving counter clockwise.
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+![alt text][image8]
+![alt text][image9]
+
+After the collection process, I had 17513 number of data points. It looks small but I increased it six times by augmentation. I then preprocessed this data by normalization and cropping.
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 5 after several  I used an adam optimizer so that manually training the learning rate wasn't necessary.
