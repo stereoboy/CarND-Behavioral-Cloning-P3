@@ -17,6 +17,7 @@ from keras.layers import Lambda, Cropping2D
 from keras.models import load_model
 from keras import backend as K
 from keras.layers.normalization import BatchNormalization
+
 DATA_DIR = './DATA/'
 IMG_SUBDIR = '/IMG/'
 
@@ -153,7 +154,6 @@ def main():
   plt.xlabel('epoch')
   plt.legend(['training set', 'validation set'], loc='upper right')
   plt.savefig('visualization.png')
-
   print('saving loss visualization done.')
 
 if __name__ == '__main__':
