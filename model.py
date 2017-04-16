@@ -16,7 +16,7 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Lambda, Cropping2D
 from keras.models import load_model
 from keras import backend as K
-
+from keras.layers.normalization import BatchNormalization
 DATA_DIR = './DATA/'
 IMG_SUBDIR = '/IMG/'
 
@@ -39,16 +39,19 @@ def load_img(dirpath, filepath):
   filename = filepath.split('/')[-1]
   path = os.path.join(dirpath + IMG_SUBDIR, filename)
   img = cv2.imread(path)
+  if img == None:
+    print(path)
+    sys.exit()
   return img
 
 def generator(samples, batch_size=32, augment_factor=6):
-  correction = 0.2 # this is a parameter to tune
+  correction = 0.15 # this is a parameter to tune
   num_samples = len(samples)
 
   while 1: # Loop forever so the generator never terminates
     random.shuffle(samples)
-    for offset in range(0, num_samples, batch_size//augment_factor):
-      batch_samples = samples[offset:offset+batch_size//augment_factor]
+    for offset in range(0, num_samples, batch_size):
+      batch_samples = samples[offset:offset+batch_size]
 
       images = []
       angles = []
@@ -72,14 +75,16 @@ def generator(samples, batch_size=32, augment_factor=6):
       # trim image to only see section with road
       X_train = np.array(images)
       y_train = np.array(angles)
-      #yield sklearn.utils.shuffle(X_train, y_train)
-      yield (X_train, y_train)
+      ret = sklearn.utils.shuffle(X_train, y_train)
+      for i in range(augment_factor):
+        offset = batch_size*i
+        yield (ret[0][offset:offset + batch_size], ret[1][offset:offset + batch_size])
 
 def main():
   model_file = 'model.h5'
   batch_size = 192
   augment_factor=6
-  epochs = 2
+  epochs = 7
 
   # prepare data
   samples = load_samples()
@@ -110,6 +115,7 @@ def main():
     model = Sequential()
     model.add(Cropping2D(cropping=((70, 25), (0,0)), input_shape=input_shape))
     model.add(Lambda(lambda x: (x / 255.0) - 0.5))
+#    model.add(BatchNormalization())
     model.add(Conv2D(24, kernel_size=(5, 5), strides=(2, 2), activation='relu'))
     model.add(Conv2D(36, kernel_size=(5, 5), strides=(2, 2), activation='relu'))
     model.add(Conv2D(48, kernel_size=(5, 5), strides=(2, 2), activation='relu'))
