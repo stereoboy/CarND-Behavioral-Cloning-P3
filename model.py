@@ -84,10 +84,12 @@ def main():
   model_file = 'model.h5'
   batch_size = 192
   augment_factor=6
-  epochs = 7
+  epochs = 5
 
   # prepare data
   samples = load_samples()
+  random.seed(0)
+  random.shuffle(samples)
   train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
   if K.image_data_format() == 'channels_first':
