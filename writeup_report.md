@@ -41,6 +41,8 @@ My project includes the following files:
 * writeup_report.md or writeup_report.pdf summarizing the results
 * video.mp4 A video recording of your vehicle driving autonomously at least one lap around the track
 
+**Final Result:** [video.mp4]('https://github.com/stereoboy/CarND-Behavioral-Cloning-P3/blob/master/video.mp4')
+
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
