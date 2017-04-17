@@ -81,7 +81,7 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-I decided to follow NVIDIA configurations, because the model is complicated enough to capture geometrical features from the collected images for the project. And I focus on Data collection and Data Augmentations.
+I decided to follow [NVIDIA configurations](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), because the model is complicated enough to capture geometrical features from the collected images for the project. And I focus on Data collection and Data Augmentations.
 
 I increased data after every experiments. Whenever I ran trainig mode I collected more than 2000 images. And I focued on collecting images on the curves of the road. Because in the first few experiments my model failed to go properly on the curves ,and go away out of lanes.
 
